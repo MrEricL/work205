@@ -7,7 +7,7 @@ HYPERLINK: https://data.parliament.scot/api/events
 SUMMARY: Our json file is opened, parsed, and conveniently converted into a list of dictionaries. We ran the mongo function insert_many() with the list of dictionaries as the input to import our json data into our database.
 '''
 
-import pymongo, json
+import pymongo, json, datetime
 
 #connect to the database and collection; create if nonexisted
 connection = pymongo.MongoClient("149.89.150.100")
@@ -32,16 +32,16 @@ def insert(j_file):
         print "Database is filled already."
 
 
+#==================================================================
+# FORMATTING
 
-insert("junglerabbits.json")
 
 #Prints data nice
 def prettyPrint(x):
-	#with id
-	#retStr = x['Date'] + "\t" + str(x['ID'])+"\n"+x['Title']+"\n"+x['Sponsor']+"\n"
 	#without id
 	retStr = x['Date']+"\n"+x['Title']+"\n"+x['Sponsor']+"\n"
-	print retStr
+	print retStr.encode('utf-8')
+
 
 
 #gets the date from the string
@@ -61,45 +61,32 @@ def getDate(date,type):
 		return day
 
 
-#START OF SEARCH FUNCS
+#==================================================================
+# START OF SEARCH FUNCS
+
+
 #if you wanted to get by ID for some reason
 def getID(id):
 	temp = collection.find({'ID':id})
 	for each in temp:
 		prettyPrint(each)
 
-
-#get by year
+# find by year
 def getYear(y):
-	temp = collection.find({})
-	for each in temp:
-		year = getDate(each['Date'],0)
-		if year == int(y):
-			prettyPrint(each)
+    st = str(y) + "-01-01T00:00:00"
+    end = str(y+1) + "-01-01T00:00:00"
+    temp = collection.find({'Date': {'$gte' : st, '$lte': end}})
+    for each in temp:
+	prettyPrint(each)
+                
 #get by month
-def getMonth(m):
-	temp = collection.find({})
-	for each in temp:
-		month = getDate(each['Date'],1)
-		if month == int(m):
-			prettyPrint(each)
-#get by day
-def getDay(d):
-	temp = collection.find({})
-	for each in temp:
-		day = getDate(each['Date'],2)
-		if day == int(d):
-			prettyPrint(each)
-
-#get month and year
-def getMonthYear(m,y):
-	temp = collection.find({})
-	for each in temp:
-		year = getDate(each['Date'],0)
-		month = getDate(each['Date'],1)
-		if year == int(y) and month == int(m):
-			prettyPrint(each)
-
+def getTimeRange(d1, d2):
+    st = d1 + "T00:00:00"
+    end = d2 + "T00:00:00"
+    temp = collection.find({'Date': {'$gte' : st, '$lte': end}})
+    for each in temp:
+	prettyPrint(each)
+            
 def getSponser(name):
 	temp = collection.find({"Sponsor":name})
 	for each in temp:
@@ -112,8 +99,17 @@ def getSponser(name):
 		prettyPrint(each)
 
 
-#getID(1)
-#getYear(2016)
-#getMonth(12)
-#getMonthYear(10,2016)
+insert("junglerabbits.json")
+
+print "GET BY ID - 1"
+print "======================================================"
+getID(1)
+print "GET BY YEAR - 2016"
+print "======================================================"
+getYear(2016)
+print "GET BY TIME RANGE - 2015-12-01 to 2015-12-14"
+print "======================================================"
+getTimeRange("2015-12-01", "2015-12-14")
+print "GET BY SPONSOR - Jackie Baillie"
+print "======================================================"
 getSponser("Jackie Baillie")
