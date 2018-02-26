@@ -106,17 +106,17 @@ def getSponser(name):
 		prettyPrint(each)
 
 
-insert("junglerabbits.json")
-
-print "GET BY ID - 1"
-print "======================================================"
-getID(1)
-print "GET BY YEAR - 2016"
-print "======================================================"
-getYear(2016)
-print "GET BY TIME RANGE - 2015-12-01 to 2015-12-14"
-print "======================================================"
-getTimeRange("2015-12-01", "2015-12-14")
-print "GET BY SPONSOR - Jackie Baillie"
-print "======================================================"
-getSponser("Jackie Baillie")
+if __name__ == "__main__":                
+    insert("junglerabbits.json")
+    print "GET BY ID - 1"
+    print "======================================================"
+    getID(1)
+    print "GET BY YEAR - 2016"
+    print "======================================================"
+    getYear(2016)
+    print "GET BY TIME RANGE - 2015-12-01 to 2015-12-14"
+    print "======================================================"
+    getTimeRange("2015-12-01", "2015-12-14")
+    print "GET BY SPONSOR - Jackie Baillie"
+    print "======================================================"
+    getSponser("Jackie Baillie")
