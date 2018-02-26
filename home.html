@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Scottish Parliment DB</title>
+</head>
+<body>
+	<p>
+		This is a database that searches through previous Scottish Parliment bills. <br>
+		Search Functions<br>
+		Leave as many blank or as many filled in.
+	</p>
+	<form action="/" method="POST">
+		Sponsor Name <input name="sponsor" type="text"><br>	
+	  		<input type="submit" value="Submit">
+	</form>
+	<br><br>
+	<form action="/" method="POST">
+		Year <input name="year" type="text"><br>
+		 <input type="submit" value="Submit">	
+	</form>
+	<br><br>
+	<form action="/" method="POST">
+		Range (YYYY-MM-DD )<br> 
+		Date 1 <input name="d1" type="text"><br>
+		Date 2 <input name="d2" type="text"><br>
+  		<input type="submit" value="Submit">		
+	</form>	
+
+
+
+	<br><br><br>
+
+	{% for each in result%}
+
+		{each}
+		<br><br>
+
+	{% endfor %}
+
+
+</body>
+</html>
