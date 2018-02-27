@@ -7,15 +7,15 @@ app = Flask(__name__)
 @app.route('/', methods = ['POST', 'GET'])
 def root():
     if request.method == 'POST':
-        print results(request.form)
-        return render_template('home.html')
+        return render_template('home.html', results = resulting(request.form))
     return render_template('home.html')
 
-def results(dict):
+def resulting(dict):
     if 'sponsor' in dict:
         return rundb.getSponsor(dict['sponsor'])
-    if 'name' in dict:
-        return rundb.getYear(dict['year'])
+    if 'year' in dict:
+        yr = int(dict['year'])
+        return rundb.getYear(yr)
     else:
         return rundb.getTimeRange(dict['d1'], dict['d2'])
 

@@ -1,42 +1,55 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Scottish Parliment DB</title>
-</head>
-<body>
-	<p>
-		This is a database that searches through previous Scottish Parliment bills. <br>
-		Search Functions<br>
-		Leave as many blank or as many filled in.
-	</p>
-	<form action="/" method="POST">
-		Sponsor Name <input name="sponsor" type="text"><br>	
-	  		<input type="submit" value="Submit">
-	</form>
-	<br><br>
-	<form action="/" method="POST">
-		Year <input name="year" type="text"><br>
-		 <input type="submit" value="Submit">	
-	</form>
-	<br><br>
-	<form action="/" method="POST">
-		Range (YYYY-MM-DD )<br> 
-		Date 1 <input name="d1" type="text"><br>
-		Date 2 <input name="d2" type="text"><br>
-  		<input type="submit" value="Submit">		
-	</form>	
+  <head>
+    <title>Scottish Parliament DB</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="shortcut icon" href="https://cdn.shopify.com/s/files/1/0580/0973/products/Pikachu_Face_2048x2048.jpg?v=1488374667" type="image/jpg">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/poke.css">
+    
+  </head>
+  <body>
+    <br><br>
+    <div class = "container">
+      <h1>SCOTTISH PARLIAMENT EVENTS</h1><br>
+      <div class = "row">
+	<div class = "col-6">
+	  <h4>SEARCH FUNCTONS</h4><br>
+	  This is a database that searches through previous Scottish Parliment bills.<br>
+	  Leave as many blank or as many filled in.
+	  <br><br><br>
+	  <form action="/" method="POST">
+	    GET BY SPONSOR (ex: Jackie Baillie)<br><br>
+	    Sponsor Name <input name="sponsor" type="text"><br>	
+	    <br><input type="submit" value="Submit">
+	  </form>
+	  <br><hr><br>
+	  <form action="/" method="POST">
+	    GET BY YEAR (2015 - 2017)<br><br>
+	    Year <input name="year" type="text"><br>
+	    <br><input type="submit" value="Submit">	
+	  </form>
+	  <br><hr><br>
+	  <form action="/" method="POST">
+	    GET BY RANGE (YYYY-MM-DD )<br><br>
+	    Start <input name="d1" type="text"><br>
+	    End <input name="d2" type="text"><br>
+	    <br><input type="submit" value="Submit">		
+	  </form>	
+
+	</div>
 
 
-
-	<br><br><br>
-
-	{% for each in result%}
-
-		{each}
-		<br><br>
-
-	{% endfor %}
-
-
-</body>
+	<div class="col-6">
+	  <h4>SEARCH RESULTS</h4><br>
+	  {% for each in results%}
+	  {{each['Title']}}
+	  <br>
+	  {% endfor %}
+	</div>
+      </div>
+      <br><br><br>
+    </div>
+  </body>
 </html>

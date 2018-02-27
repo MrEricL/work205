@@ -67,11 +67,6 @@ def getDate(date,type):
 	elif type == 2:
 		return day
 
-def merge_two_dicts(x, y):
-    z = x.copy()   # start with x's keys and values
-    z.update(y)    # modifies z with y's keys and values & returns None
-    return z
-
 
 #==================================================================
 # START OF SEARCH FUNCS
@@ -79,7 +74,7 @@ def merge_two_dicts(x, y):
 
 #if you wanted to get by ID for some reason
 def getID(id):
-	temp = collection.find({'ID':id})
+    temp = collection.find({'ID':id})
     return temp
 
 # find by year
@@ -98,12 +93,14 @@ def getTimeRange(d1, d2):
 	   
             
 def getSponsor(name):
-	temp = collection.find({"Sponsor":name})
-
-	name2 = name+" MSP"
-	temp2 = collection.find({"Sponsor":name2})
-
-    return merge_two_dicts(temp,temp2)
+    result = list()
+    temp = collection.find({"Sponsor":name})
+    for item in temp:
+        result.append(item)
+    temp2 = collection.find({"Sponsor": name+" MSP"})
+    for item in temp2:
+        result.append(item)
+    return result
 
 
 
