@@ -22,6 +22,9 @@ def resulting(dict):
 
 
 if __name__ == "__main__":
+    connection = pymongo.MongoClient("149.89.150.100")
+    connection.drop_database('junglerabbits')
+    rundb.insert('data/junglerabbits.json')
     app.debug = True
     app.run()
 
