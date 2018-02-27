@@ -44,7 +44,10 @@
 	<div class="col-6">
 	  <h4>SEARCH RESULTS</h4><br>
 	  {% for each in results%}
-	  {{each['Title']}}
+	  {{each['Title']}} <br>
+	  {{each['Sponsor']}} <br>
+	  {{each['Date']}} <br>
+
 	  <br>
 	  {% endfor %}
 	</div>

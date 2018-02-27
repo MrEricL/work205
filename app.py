@@ -3,13 +3,14 @@ import pymongo
 from utils import rundb
 
 app = Flask(__name__)
-
+#Root directory to render
 @app.route('/', methods = ['POST', 'GET'])
 def root():
     if request.method == 'POST':
         return render_template('home.html', results = resulting(request.form))
     return render_template('home.html')
 
+#Searches query string for matches and returns it
 def resulting(dict):
     if 'sponsor' in dict:
         return rundb.getSponsor(dict['sponsor'])
